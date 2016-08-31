@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var fs = require('fs');
 var users = require('./routes/users');
 
 var app = express();
@@ -24,6 +25,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+app.get('/form', function(req, res) {
+    fs.readFile('./form.html', function(error, content) {
+        if (error) {
+            res.writeHead(500);
+            res.end();
+        }
+        else {
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(content, 'utf-8');
+        }
+    });
+});
+
+app.post('/signup', function(req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    User.addUser(username, password, function(err, user) {
+        if (err) throw err;
+        res.redirect('/form');
+    });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

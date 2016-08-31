@@ -33,7 +33,7 @@ Chapter 1 Coming to a Server Near You
 [x] In the Beginning 
 [x] Installation 
 [x] Assembling the Pieces 
-[ ] A Basic Form 
+[x] A Basic Form 
 [ ] The Database 
 [ ] Summary 
 
